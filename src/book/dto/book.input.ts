@@ -11,6 +11,4 @@ export class InputBook {
   @Field((type) => String, { nullable: true })
   description?: string;
 
-  @Field((type) => [String])
-  writer: string[];
 }

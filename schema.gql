@@ -2,25 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Book {
-  id: ID!
+type BookEntity {
+  id: String!
   name: String
   description: String
   price: Float
-  writer: [String!]
 }
 
 type Query {
-  getBook: Book!
-}
-
-type Mutation {
-  createBook(input: InputBook!): Book!
-}
-
-input InputBook {
-  name: String!
-  price: Float
-  description: String
-  writer: [String!]!
+  getBooks(id: String!): BookEntity!
 }

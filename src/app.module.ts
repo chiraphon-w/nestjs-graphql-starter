@@ -1,27 +1,29 @@
-// import { Module } from '@nestjs/common';
-// import { AppController } from './app.controller';
-// import { AppService } from './app.service';
-
-// @Module({
-//   imports: [],
-//   controllers: [AppController],
-//   providers: [AppService],
-// })
-// export class AppModule {}
-
 import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
+import { TypeOrmModule } from '@nestjs/typeorm'
 import { BookModule } from './book/book.module';
-
 @Module({
   imports: [
     GraphQLModule.forRoot({
       installSubscriptionHandlers: true,
       autoSchemaFile: 'schema.gql',
-      debug: false,
       playground: true,
     }),
-    BookModule,
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: 'daytech',
+      database: 'nest_gql',
+      entities: ['dist/**/*.entity.js'],
+      synchronize: true,
+    }),
+    BookModule
   ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

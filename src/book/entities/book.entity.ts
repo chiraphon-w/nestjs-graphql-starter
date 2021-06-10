@@ -3,20 +3,20 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 
 @ObjectType()
 @Entity()
-export class Book {
+export class BookEntity {
   @Field()
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string;
 
-  @Field()
+  @Field(type => String)
   @Column({ nullable: true })
   name?: string;
 
-  @Field()
+  @Field(type => String, )
   @Column({ nullable: true })
   description?: string;
 
-  @Field()
+  @Field(type => Number, )
   @Column({ nullable: true })
   price?: number;
 }

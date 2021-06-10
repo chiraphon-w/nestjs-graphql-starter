@@ -1,25 +1,24 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { Book } from './models/book.model';
-import { InputBook } from './dto/book.input';
-
-@Resolver('Book')
+import { Resolver, Mutation, Args, Query, ResolveField, Parent } from '@nestjs/graphql';
+import { Inject } from '@nestjs/common';
+import { BookEntity } from './entities/book.entity';
+import { BookService } from './book.service';
+@Resolver(of => BookEntity)
 export class BookResolver {
-  @Query((returns) => Book)
-  getBook(): Book {
-    const result: Book = {
-      id: '1',
-      name: 'BeforeSecond',
-      price: 199,
-    };
-    return result;
+  constructor(
+    @Inject(BookService) private bookService: BookService,
+  ) { }
+  
+  @Query(returns => BookEntity)
+   getBooks(@Args('id') id: string){
+    return this.bookService.findOne(id);
   }
-
-  @Mutation((returns) => Book)
-  createBook(@Args('input') input: InputBook): Book {
-    const result: Book = {
-      id: '2',
-      ...input,
-    };
-    return result;
-  }
+  
+  // @Query(returns => [BookEntity])
+  // async customers(): Promise<BookEntity[]> {
+  //   return await this.bookService.findAll();
+  // }
+  // @Query(() => String)
+  // sayHello(): string {
+  //   return 'Hello World!';
+  // }
 }
