@@ -1,3 +1,4 @@
+import { WriterModule } from './writer/writer.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -21,6 +22,7 @@ import { BookModule } from './book/book.module';
       entities: ['dist/**/*.entity.js'],
       synchronize: true,
     }),
+    WriterModule,
     BookModule
   ],
   controllers: [AppController],

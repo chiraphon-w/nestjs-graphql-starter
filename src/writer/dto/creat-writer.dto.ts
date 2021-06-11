@@ -10,7 +10,7 @@ import {
 } from 'class-validator';
 
 @InputType()
-export class CreateBookDto {
+export class CreateWriterDto {
   @Field((type) => String)
   @IsNotEmpty()
   @IsString()
@@ -20,18 +20,4 @@ export class CreateBookDto {
     message: 'name must be a-z, A-Z or Thai language Only',
   })
   name: string;
-
-  @Field((type) => String, { nullable: true })
-  @IsNotEmpty()
-  @IsString()
-  description: string;
-
-  @Field((type) => Number, { nullable: true })
-  @IsNotEmpty()
-  price: number;
-
-
-  @Field((type) => String, { nullable: true })
-  @IsNotEmpty()
-  writerId: string;
 }

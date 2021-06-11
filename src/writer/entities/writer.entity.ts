@@ -1,4 +1,4 @@
-import { WriterEntity } from './../../writer/entities/writer.entity';
+import { BookEntity } from './../../book/entities/book.entity';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import {
   Entity,
@@ -9,32 +9,19 @@ import {
   OneToMany,
   Unique,
   DeleteDateColumn,
-  ManyToOne,
 } from 'typeorm';
 
 @ObjectType()
-@Entity({ name: 'book' })
+@Entity({ name: 'writer' })
 @Unique(['name'])
-export class BookEntity {
+export class WriterEntity {
   @Field()
   @PrimaryGeneratedColumn()
   id: string;
 
-  @Field()
-  @Column()
-  writerId!: string;
-
   @Field((type) => String)
   @Column({ nullable: true })
   name: string;
-
-  @Field((type) => String)
-  @Column({ nullable: true })
-  description: string;
-
-  @Field((type) => Number)
-  @Column({ nullable: true })
-  price: number;
 
   @Field()
   @Column()
@@ -49,9 +36,10 @@ export class BookEntity {
   @DeleteDateColumn({ type: 'timestamptz' })
   deleted_at?: Date;
 
-  @ManyToOne(
-    () => WriterEntity,
-    (writerEntity: WriterEntity) => writerEntity.book,
+  @OneToMany(
+    () => BookEntity,
+    (bookEntity) => bookEntity.writer,
   )
-  writer: WriterEntity;
+  book: BookEntity[];
+
 }
