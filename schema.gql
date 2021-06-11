@@ -4,11 +4,32 @@
 
 type BookEntity {
   id: String!
-  name: String
-  description: String
-  price: Float
+  name: String!
+  description: String!
+  price: Float!
+  created_at: DateTime!
+  updated_at: DateTime!
+  deleted_at: DateTime
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Query {
-  getBooks(id: String!): BookEntity!
+  getBooks: [BookEntity!]!
+  getBookById(id: String!): BookEntity!
+}
+
+type Mutation {
+  createBook(createBookDto: CreateBookDto!): BookEntity!
+  updateBookById(createBookDto: CreateBookDto!, id: String!): BookEntity!
+  deleteBookById(id: String!): BookEntity!
+}
+
+input CreateBookDto {
+  name: String!
+  description: String
+  price: Float
 }
